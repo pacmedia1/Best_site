@@ -1,0 +1,1795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bright Future Academy - Ghana</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0d9488;
+            --secondary: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        .dark {
+            --primary: #14b8a6;
+            --secondary: #fbbf24;
+            --dark: #f8fafc;
+            --light: #1e293b;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 90vh;
+        }
+        
+        .dark .hero {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--secondary);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .social-sidebar {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+        
+        .social-icon {
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            transform: translateX(-10px);
+        }
+        
+        .gallery-item {
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 35px;
+            cursor: pointer;
+        }
+        
+        .slide {
+            display: none;
+            animation: fade 1.5s;
+        }
+        
+        @keyframes fade {
+            from {opacity: .4}
+            to {opacity: 1}
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .active-slide {
+            display: block;
+        }
+        
+        .testimonial-slide {
+            display: none;
+            animation: fade 1s;
+        }
+        
+        .active-testimonial {
+            display: block;
+        }
+        
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+        }
+        
+        .floating-btn {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);}
+            70% {box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);}
+            100% {box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);}
+        }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .accordion.active .accordion-content {
+            max-height: 500px;
+        }
+        
+        .accordion.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+        
+        .accordion-icon {
+            transition: transform 0.3s;
+        }
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 99;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .scroll-top.visible {
+            opacity: 1;
+        }
+        
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .mobile-menu.open {
+            max-height: 1000px;
+        }
+        
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #0d9488;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 16px;
+            border-radius: 4px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .toast.show {
+            opacity: 1;
+        }
+        
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+        
+        .calendar-day {
+            padding: 8px;
+            text-align: center;
+            border-radius: 4px;
+        }
+        
+        .calendar-day.active {
+            background-color: #0d9488;
+            color: white;
+        }
+        
+        .responsive-table {
+            width: 100%;
+            overflow-x: auto;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+        
+        .scroll-top:hover {
+            animation: bounce 1s;
+        }
+    </style>
+</head>
+<body class="relative">
+    <!-- Loading Spinner -->
+    <div id="loader" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000]">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Social Media Sidebar -->
+    <div class="social-sidebar hidden md:flex flex-col space-y-4 p-2 bg-white dark:bg-slate-800 rounded-l-lg shadow-lg">
+        <a href="#" class="social-icon bg-blue-600 text-white p-2 rounded-full w-10 h-10 flex items-center justify-center">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" class="social-icon bg-pink-600 text-white p-2 rounded-full w-10 h-10 flex items-center justify-center">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" class="social-icon bg-blue-400 text-white p-2 rounded-full w-10 h-10 flex items-center justify-center">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="social-icon bg-red-600 text-white p-2 rounded-full w-10 h-10 flex items-center justify-center">
+            <i class="fab fa-youtube"></i>
+        </a>
+    </div>
+
+    <!-- WhatsApp Floating Button -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/233123456789" class="floating-btn bg-green-500 text-white p-4 rounded-full shadow-lg flex items-center justify-center">
+            <i class="fab fa-whatsapp text-2xl">https://wa.me/qr/BC23O6LLEZWAC1</i>
+        </a>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" class="scroll-top bg-teal-600 text-white p-3 rounded-full shadow-lg">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-slate-800 shadow-md sticky top-0 z-50 transition-colors duration-300">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <img src="mylogo.jpeg" alt="School Logo" class="h-12 w-12 rounded-full">
+                    <div>
+                        <h1 class="text-xl font-bold text-teal-600 dark:text-teal-400">Bright Future Academy</h1>
+                        <p class="text-xs text-gray-500 dark:text-gray-300">Preschool | Primary | JHS</p>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-gray-700 dark:text-gray-200 font-medium">Home</a>
+                    <a href="#about" class="nav-link text-gray-700 dark:text-gray-200 font-medium">About Us</a>
+                    <div class="relative group">
+                        <button class="nav-link text-gray-700 dark:text-gray-200 font-medium flex items-center">
+                            Academics <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute left-0 mt-2 w-48 bg-white dark:bg-slate-700 shadow-lg rounded-md py-2 hidden group-hover:block z-50">
+                            <a href="#preschool" class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-teal-100 dark:hover:bg-teal-900">Preschool</a>
+                            <a href="#primary" class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-teal-100 dark:hover:bg-teal-900">Primary</a>
+                            <a href="#jhs" class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-teal-100 dark:hover:bg-teal-900">JHS</a>
+                        </div>
+                    </div>
+                    <a href="#gallery" class="nav-link text-gray-700 dark:text-gray-200 font-medium">Gallery</a>
+                    <a href="#contact" class="nav-link text-gray-700 dark:text-gray-200 font-medium">Contact</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button id="themeToggle" class="p-2 rounded-full bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-200">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                    <button id="mobileMenuBtn" class="md:hidden text-gray-700 dark:text-gray-200">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="mobile-menu md:hidden mt-4 pb-4">
+                <a href="#home" class="block py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 px-4 rounded">Home</a>
+                <a href="#about" class="block py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 px-4 rounded">About Us</a>
+                <div class="py-2">
+                    <button id="academicsMobileBtn" class="flex items-center justify-between w-full text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 px-4 py-2 rounded">
+                        <span>Academics</span>
+                        <i class="fas fa-chevron-down text-xs accordion-icon"></i>
+                    </button>
+                    <div id="academicsMobileMenu" class="hidden pl-6">
+                        <a href="#preschool" class="block py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 px-4 rounded">Preschool</a>
+                        <a href="#primary" class="block py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 px-4 rounded">Primary</a>
+                        <a href="#jhs" class="block py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 px-4 rounded">JHS</a>
+                    </div>
+                </div>
+                <a href="#gallery" class="block py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 px-4 rounded">Gallery</a>
+                <a href="#contact" class="block py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 px-4 rounded">Contact</a>
+                <div class="flex space-x-4 px-4 py-2">
+                    <a href="#" class="text-gray-700 dark:text-gray-200"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-700 dark:text-gray-200"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-700 dark:text-gray-200"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero flex items-center justify-center text-center text-white">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-bounce">Bright Future Academy</h1>
+            <p class="text-xl md:text-2xl mb-8">Nurturing Young Minds for a Brighter Tomorrow</p>
+            <p class="text-lg mb-8">Preschool | Primary | Junior High School</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#contact" class="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-full font-medium transition duration-300">Enquire Now</a>
+                <a href="#about" class="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-full font-medium transition duration-300">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Slideshow -->
+    <section class="bg-gray-100 dark:bg-slate-700 py-12">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-8 text-teal-600 dark:text-teal-400">Our School Life</h2>
+            
+            <div class="relative max-w-4xl mx-auto overflow-hidden rounded-lg shadow-xl">
+                <div class="slide active-slide">
+                    <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" alt="Classroom" class="w-full h-64 md:h-96 object-cover">
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Students learning" class="w-full h-64 md:h-96 object-cover">
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="School building" class="w-full h-64 md:h-96 object-cover">
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1522661067909-ab5224f1cefa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Sports day" class="w-full h-64 md:h-96 object-cover">
+                </div>
+                
+                <button id="prevBtn" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="nextBtn" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                
+                <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+                    <span class="dot h-3 w-3 rounded-full bg-white cursor-pointer"></span>
+                    <span class="dot h-3 w-3 rounded-full bg-white bg-opacity-50 cursor-pointer"></span>
+                    <span class="dot h-3 w-3 rounded-full bg-white bg-opacity-50 cursor-pointer"></span>
+                    <span class="dot h-3 w-3 rounded-full bg-white bg-opacity-50 cursor-pointer"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Info -->
+    <section class="py-12 bg-teal-600 dark:bg-teal-800 text-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="p-6 rounded-lg bg-white dark:bg-slate-700 bg-opacity-10 backdrop-filter backdrop-blur-sm">
+                    <i class="fas fa-graduation-cap text-4xl mb-4 text-amber-300"></i>
+                    <h3 class="text-xl font-bold mb-2">Quality Education</h3>
+                    <p>Following GES curriculum with modern teaching methods to ensure academic excellence.</p>
+                </div>
+                <div class="p-6 rounded-lg bg-white dark:bg-slate-700 bg-opacity-10 backdrop-filter backdrop-blur-sm">
+                    <i class="fas fa-child text-4xl mb-4 text-amber-300"></i>
+                    <h3 class="text-xl font-bold mb-2">Holistic Development</h3>
+                    <p>Focusing on intellectual, physical, emotional and social growth of every child.</p>
+                </div>
+                <div class="p-6 rounded-lg bg-white dark:bg-slate-700 bg-opacity-10 backdrop-filter backdrop-blur-sm">
+                    <i class="fas fa-users text-4xl mb-4 text-amber-300"></i>
+                    <h3 class="text-xl font-bold mb-2">Experienced Staff</h3>
+                    <p>Qualified and dedicated teachers committed to nurturing young minds.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us -->
+    <section id="about" class="py-16 bg-white dark:bg-slate-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-teal-600 dark:text-teal-400">About Our School</h2>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="School building" class="rounded-lg shadow-xl w-full">
+                </div>
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">Our Mission</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">To provide quality education that empowers students to become responsible, innovative and productive citizens through a conducive learning environment that fosters academic excellence, moral values and social responsibility.</p>
+                    
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">Our Vision</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">To be a leading educational institution in Ghana that nurtures well-rounded individuals equipped with knowledge, skills and values to excel in an ever-changing world.</p>
+                    
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">Our Values</h3>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-teal-500 mt-1 mr-2"></i>
+                            <span class="text-gray-600 dark:text-gray-300">Excellence</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-teal-500 mt-1 mr-2"></i>
+                            <span class="text-gray-600 dark:text-gray-300">Integrity</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-teal-500 mt-1 mr-2"></i>
+                            <span class="text-gray-600 dark:text-gray-300">Respect</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-teal-500 mt-1 mr-2"></i>
+                            <span class="text-gray-600 dark:text-gray-300">Creativity</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-teal-500 mt-1 mr-2"></i>
+                            <span class="text-gray-600 dark:text-gray-300">Teamwork</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-teal-500 mt-1 mr-2"></i>
+                            <span class="text-gray-600 dark:text-gray-300">Discipline</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="bg-teal-50 dark:bg-teal-900 p-4 rounded-lg border-l-4 border-teal-500">
+                        <p class="text-gray-700 dark:text-gray-200 italic">"Bright Future Academy is fully accredited by the Ghana Education Service (GES) and follows the national curriculum while incorporating innovative teaching methods to prepare our students for the challenges of the 21st century."</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Leadership -->
+            <div class="mt-16">
+                <h3 class="text-2xl font-bold mb-8 text-center text-gray-800 dark:text-gray-200">Our Leadership</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white dark:bg-slate-700 rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Headmistress" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-800 dark:text-gray-200">Mrs. Akosua Mensah</h4>
+                            <p class="text-teal-600 dark:text-teal-400 mb-2">Headmistress</p>
+                            <p class="text-gray-600 dark:text-gray-300">With over 20 years of experience in education, Mrs. Mensah leads our school with dedication and vision.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-slate-700 rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Academic Head" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-800 dark:text-gray-200">Mr. Kwame Osei</h4>
+                            <p class="text-teal-600 dark:text-teal-400 mb-2">Academic Head</p>
+                            <p class="text-gray-600 dark:text-gray-300">Specializing in curriculum development, Mr. Osei ensures our academic standards remain high.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-slate-700 rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Administrator" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold text-gray-800 dark:text-gray-200">Mrs. Adwoa Boateng</h4>
+                            <p class="text-teal-600 dark:text-teal-400 mb-2">Administrator</p>
+                            <p class="text-gray-600 dark:text-gray-300">With expertise in school administration, Mrs. Boateng keeps our operations running smoothly.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Academic Levels -->
+    <section class="py-16 bg-gray-100 dark:bg-slate-700">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-teal-600 dark:text-teal-400">Our Academic Programs</h2>
+            
+            <!-- Preschool -->
+            <div id="preschool" class="mb-16 bg-white dark:bg-slate-800 rounded-lg shadow-lg overflow-hidden">
+                <div class="flex flex-col lg:flex-row">
+                    <div class="lg:w-1/3">
+                        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Preschool" class="w-full h-full object-cover">
+                    </div>
+                    <div class="lg:w-2/3 p-8">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">Preschool (Creche, Nursery, KG)</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6">Our preschool program provides a nurturing environment where young children develop foundational skills through play-based learning, creative activities and social interaction.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <h4 class="font-bold text-gray-800 dark:text-gray-200 mb-2">Program Highlights:</h4>
+                                <ul class="text-gray-600 dark:text-gray-300 space-y-2">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-teal-500 mt-1 mr-2"></i>
+                                        <span>Age-appropriate learning activities</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-teal-500 mt-1 mr-2"></i>
+                                        <span>Language and literacy development</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-teal-500 mt-1 mr-2"></i>
+                                        <span>Numeracy and problem-solving skills</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-teal-500 mt-1 mr-2"></i>
+                                        <span>Creative arts and music</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 dark:text-gray-200 mb-2">Daily Schedule:</h4>
+                                <ul class="text-gray-600 dark:text-gray-300 space-y-2">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-clock text-teal-500 mt-1 mr-2"></i>
+                                        <span>7:30 AM - Arrival & Free Play</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-clock text-teal-500 mt-1 mr-2"></i>
+                                        <span>8:30 AM - Circle Time</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-clock text-teal-500 mt-1 mr-2"></i>
+                                        <span>9:00 AM - Learning Centers</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-clock text-teal-500 mt-1 mr-2"></i>
+                                        <span>12:00 PM - Lunch & Nap Time</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-amber-50 dark:bg-amber-900 p-4 rounded-lg border-l-4 border-amber-500">
+                            <p class="text-gray-700 dark:text-gray-200">"Our preschool teachers are specially trained in early childhood development to ensure your child receives the best possible start to their educational journey."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Primary -->
+            <div id="primary" class="mb-16 bg-white dark:bg-slate-800 rounded-lg shadow-lg overflow-hidden">
+                <div class="flex flex-col lg:flex-row-reverse">
+                    <div class="lg:w-1/3">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Primary" class="w-full h-full object-cover">
+                    </div>
+                    <div class="lg:w-2/3 p-8">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">Primary (Basic 1 to 6)</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6">Our primary program builds on foundational skills while introducing more structured learning in core subjects aligned with the Ghana Education Service curriculum.</p>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold text-gray-800 dark:text-gray-200 mb-4">Curriculum Overview:</h4>
+                            <div class="responsive-table">
+                                <table class="min-w-full bg-white dark:bg-slate-700 rounded-lg overflow-hidden">
+                                    <thead class="bg-teal-600 dark:bg-teal-800 text-white">
+                                        <tr>
+                                            <th class="py-3 px-4 text-left">Subject</th>
+                                            <th class="py-3 px-4 text-left">Focus Areas</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200 dark:divide-slate-600">
+                                        <tr>
+                                            <td class="py-3 px-4 text-gray-700 dark:text-gray-200">English Language</td>
+                                            <td class="py-3 px-4 text-gray-600 dark:text-gray-300">Reading, Writing, Grammar, Comprehension</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-3 px-4 text-gray-700 dark:text-gray-200">Mathematics</td>
+                                            <td class="py-3 px-4 text-gray-600 dark:text-gray-300">Numeracy, Problem Solving, Geometry</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-3 px-4 text-gray-700 dark:text-gray-200">Science</td>
+                                            <td class="py-3 px-4 text-gray-600 dark:text-gray-300">Environmental Studies, Basic Physics & Chemistry</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-3 px-4 text-gray-700 dark:text-gray-200">Social Studies</td>
+                                            <td class="py-3 px-4 text-gray-600 dark:text-gray-300">History, Geography, Citizenship</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-3 px-4 text-gray-700 dark:text-gray-200">Ghanaian Language</td>
+                                            <td class="py-3 px-4 text-gray-600 dark:text-gray-300">Twi, Ga or Ewe (Parent's choice)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-bold text-gray-800 dark:text-gray-200 mb-2">Extracurricular Activities:</h4>
+                                <ul class="text-gray-600 dark:text-gray-300 space-y-2">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-futbol text-teal-500 mt-1 mr-2"></i>
+                                        <span>Sports (Football, Athletics)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-music text-teal-500 mt-1 mr-2"></i>
+                                        <span>Music and Dance</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-paint-brush text-teal-500 mt-1 mr-2"></i>
+                                        <span>Art and Craft</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-robot text-teal-500 mt-1 mr-2"></i>
+                                        <span>STEM Club</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 dark:text-gray-200 mb-2">Assessment:</h4>
+                                <ul class="text-gray-600 dark:text-gray-300 space-y-2">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-clipboard-check text-teal-500 mt-1 mr-2"></i>
+                                        <span>Continuous Assessment (30%)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-book text-teal-500 mt-1 mr-2"></i>
+                                        <span>Mid-Term Exams (20%)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-graduation-cap text-teal-500 mt-1 mr-2"></i>
+                                        <span>End of Term Exams (50%)</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- JHS -->
+            <div id="jhs" class="bg-white dark:bg-slate-800 rounded-lg shadow-lg overflow-hidden">
+                <div class="flex flex-col lg:flex-row">
+                    <div class="lg:w-1/3">
+                        <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="JHS" class="w-full h-full object-cover">
+                    </div>
+                    <div class="lg:w-2/3 p-8">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">Junior High School (JHS 1 to 3)</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6">Our JHS program prepares students for the Basic Education Certificate Examination (BECE) while developing critical thinking skills and preparing them for senior high school.</p>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold text-gray-800 dark:text-gray-200 mb-4">Core Subjects:</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="bg-teal-50 dark:bg-teal-900 p-4 rounded-lg">
+                                    <h5 class="font-bold text-teal-600 dark:text-teal-400 mb-2">English Language</h5>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm">Grammar, Composition, Literature, Comprehension</p>
+                                </div>
+                                <div class="bg-teal-50 dark:bg-teal-900 p-4 rounded-lg">
+                                    <h5 class="font-bold text-teal-600 dark:text-teal-400 mb-2">Mathematics</h5>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm">Algebra, Geometry, Statistics, Problem Solving</p>
+                                </div>
+                                <div class="bg-teal-50 dark:bg-teal-900 p-4 rounded-lg">
+                                    <h5 class="font-bold text-teal-600 dark:text-teal-400 mb-2">Integrated Science</h5>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm">Physics, Chemistry, Biology, Environmental Science</p>
+                                </div>
+                                <div class="bg-teal-50 dark:bg-teal-900 p-4 rounded-lg">
+                                    <h5 class="font-bold text-teal-600 dark:text-teal-400 mb-2">Social Studies</h5>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm">History, Geography, Government, Citizenship</p>
+                                </div>
+                                <div class="bg-teal-50 dark:bg-teal-900 p-4 rounded-lg">
+                                    <h5 class="font-bold text-teal-600 dark:text-teal-400 mb-2">Ghanaian Language</h5>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm">Twi, Ga or Ewe (Parent's choice)</p>
+                                </div>
+                                <div class="bg-teal-50 dark:bg-teal-900 p-4 rounded-lg">
+                                    <h5 class="font-bold text-teal-600 dark:text-teal-400 mb-2">ICT</h5>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm">Computer Literacy, Basic Programming, Digital Skills</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold text-gray-800 dark:text-gray-200 mb-2">BECE Preparation:</h4>
+                            <div class="bg-amber-50 dark:bg-amber-900 p-4 rounded-lg">
+                                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                                    <div>
+                                        <p class="text-gray-700 dark:text-gray-200 font-medium">Our comprehensive BECE preparation includes:</p>
+                                        <ul class="text-gray-600 dark:text-gray-300 mt-2 space-y-1">
+                                            <li class="flex items-start">
+                                                <i class="fas fa-check-circle text-amber-500 mt-1 mr-2"></i>
+                                                <span>Mock examinations from JHS 2</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i class="fas fa-check-circle text-amber-500 mt-1 mr-2"></i>
+                                                <span>Special revision classes</span>
+                                            </li>
+                                            <li class="flex items-start">
+                                                <i class="fas fa-check-circle text-amber-500 mt-1 mr-2"></i>
+                                                <span>Past question practice sessions</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="mt-4 md:mt-0">
+                                        <div class="bg-white dark:bg-slate-700 p-3 rounded-lg shadow-inner text-center">
+                                            <p class="text-sm text-gray-500 dark:text-gray-300">Last Year's Performance</p>
+                                            <p class="text-2xl font-bold text-teal-600 dark:text-teal-400">92%</p>
+                                            <p class="text-sm text-gray-500 dark:text-gray-300">BECE Pass Rate</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-gray-800 dark:text-gray-200 mb-2">Career Guidance:</h4>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">We provide comprehensive career counseling to help students make informed decisions about their senior high school choices and future careers.</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-white dark:bg-slate-700 p-4 rounded-lg shadow-md border-l-4 border-teal-500">
+                                    <h5 class="font-bold text-gray-800 dark:text-gray-200">Career Talks</h5>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Monthly sessions with professionals from various fields</p>
+                                </div>
+                                <div class="bg-white dark:bg-slate-700 p-4 rounded-lg shadow-md border-l-4 border-teal-500">
+                                    <h5 class="font-bold text-gray-800 dark:text-gray-200">SHS Visits</h5>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Organized tours to senior high schools</p>
+                                </div>
+                                <div class="bg-white dark:bg-slate-700 p-4 rounded-lg shadow-md border-l-4 border-teal-500">
+                                    <h5 class="font-bold text-gray-800 dark:text-gray-200">Parent Workshops</h5>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Guidance on supporting your child's career choices</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-teal-600 dark:bg-teal-800 text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">What Parents Say</h2>
+            
+            <div class="max-w-4xl mx-auto relative">
+                <div class="testimonial-slide active-testimonial">
+                    <div class="bg-white dark:bg-slate-700 bg-opacity-20 backdrop-filter backdrop-blur-sm p-8 rounded-lg">
+                        <div class="flex items-center mb-6">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Parent" class="w-16 h-16 rounded-full border-4 border-amber-300">
+                            <div class="ml-4">
+                                <h4 class="font-bold text-lg">Mrs. Ama Serwaa</h4>
+                                <p class="text-amber-200">Parent of KG2 & Primary 4</p>
+                            </div>
+                        </div>
+                        <p class="italic">"Bright Future Academy has transformed my children's learning experience. The teachers are dedicated and the curriculum is well-structured. My older child who graduated from here is now excelling in senior high school thanks to the strong foundation."</p>
+                        <div class="flex mt-4">
+                            <i class="fas fa-star text-amber-300"></i>
+                            <i class="fas fa-star text-amber-300"></i>
+                            <i class="fas fa-star text-amber-300"></i>
+                            <i class="fas fa-star text-amber-300"></i>
+                            <i class="fas fa-star text-amber-300"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-slide">
+                    <div class="bg-white dark:bg-slate-700 bg-opacity-20 backdrop-filter backdrop-blur-sm p-8 rounded-lg">
+                        <div class="flex items-center mb-6">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Parent" class="w-16 h-16 rounded-full border-4 border-amber-300">
+                            <div class="ml-4">
+                                <h4 class="font-bold text-lg">Mr. Kwabena Ofori</h4>
+                                <p class="text-amber-200">Parent of JHS 2</p>
+                            </div>
+                        </div>
+                        <p class="italic">"The BECE preparation at Bright Future Academy is exceptional. My son's performance has improved dramatically since he joined in JHS1. The teachers go above and beyond to ensure every student understands the concepts."</p>
+                        <div class="flex mt-4">
+                            <i class="fas fa-star text-amber-300"></i>
+                            <i class="fas fa-star text-amber-300"></i>
+                            <i class="fas fa-star text-amber-300"></i>
+                            <i class="fas fa-star text-amber-300"></i>
+                            <i class="fas fa-star text-amber-300"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-slide">
+                    <div class="bg-white dark:bg-slate-700 bg-opacity-20 backdrop-filter backdrop-blur-sm p-8 rounded-lg">
+                        <div class="flex items-center mb-6">
+                            <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Parent" class="w-16 h-16 rounded-full border-4 border-amber-300">
+                            <div class="ml-4">
+                                <h4 class="font-bold text-lg">Mrs. Efua Badu</h4>
+                                <p class="text-amber-200">Parent of Nursery & Primary 3</p>
+                            </div>
+                        </div>
+                        <p class="italic">"I love how the school balances academics with character development. My children are not just learning subjects but also important values. The communication from school is excellent and I always feel involved in my children's education."</p>
+                        <div class="flex mt-4">
+                            <i class="fas fa-star text-amber-300"></i>
+                            <i class="fas fa-star text-amber-300"></i>
+                            <i class="fas fa-star text-amber-300"></i>
+                            <i class="fas fa-star text-amber-300"></i>
+                            <i class="fas fa-star text-amber-300"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="prevTestimonial" class="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-teal-700 text-white p-2 rounded-full shadow-lg">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="nextTestimonial" class="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-teal-700 text-white p-2 rounded-full shadow-lg">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                
+                <div class="flex justify-center mt-6 space-x-2">
+                    <span class="testimonial-dot h-3 w-3 rounded-full bg-white cursor-pointer"></span>
+                    <span class="testimonial-dot h-3 w-3 rounded-full bg-white bg-opacity-50 cursor-pointer"></span>
+                    <span class="testimonial-dot h-3 w-3 rounded-full bg-white bg-opacity-50 cursor-pointer"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="py-16 bg-white dark:bg-slate-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-teal-600 dark:text-teal-400">Our Gallery</h2>
+            
+            <div class="flex justify-center mb-8 overflow-x-auto">
+                <div class="inline-flex rounded-md shadow-sm">
+                    <button data-filter="all" class="gallery-filter px-4 py-2 text-sm font-medium rounded-l-lg bg-teal-600 text-white">All</button>
+                    <button data-filter="events" class="gallery-filter px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-slate-700 text-gray-700 dark:text-gray-200">Events</button>
+                    <button data-filter="classroom" class="gallery-filter px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-slate-700 text-gray-700 dark:text-gray-200">Classroom</button>
+                    <button data-filter="sports" class="gallery-filter px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-slate-700 text-gray-700 dark:text-gray-200">Sports</button>
+                    <button data-filter="cultural" class="gallery-filter px-4 py-2 text-sm font-medium rounded-r-lg bg-gray-200 dark:bg-slate-700 text-gray-700 dark:text-gray-200">Cultural Day</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div class="gallery-item events" data-category="events">
+                    <img src="https://images.unsplash.com/photo-1522661067909-ab5224f1cefa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Sports Day" 
+                         class="w-full h-48 object-cover rounded-lg cursor-pointer gallery-image">
+                    <div class="gallery-overlay">
+                        <button class="view-btn text-white text-lg bg-teal-600 px-4 py-2 rounded-full" 
+                                data-img="https://images.unsplash.com/photo-1522661067909-ab5224f1cefa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                                data-caption="Sports Day">View</button>
+                    </div>
+                </div>
+                <div class="gallery-item classroom" data-category="classroom">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Classroom" 
+                         class="w-full h-48 object-cover rounded-lg cursor-pointer gallery-image">
+                    <div class="gallery-overlay">
+                        <button class="view-btn text-white text-lg bg-teal-600 px-4 py-2 rounded-full" 
+                                data-img="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                                data-caption="Classroom">View</button>
+                    </div>
+                </div>
+                <div class="gallery-item sports" data-category="sports">
+                    <img src="https://images.unsplash.com/photo-1547347298-4074fc3086f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Football" 
+                         class="w-full h-48 object-cover rounded-lg cursor-pointer gallery-image">
+                    <div class="gallery-overlay">
+                        <button class="view-btn text-white text-lg bg-teal-600 px-4 py-2 rounded-full" 
+                                data-img="https://images.unsplash.com/photo-1547347298-4074fc3086f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                                data-caption="Football">View</button>
+                    </div>
+                </div>
+                <div class="gallery-item cultural" data-category="cultural">
+                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Cultural Day" 
+                         class="w-full h-48 object-cover rounded-lg cursor-pointer gallery-image">
+                    <div class="gallery-overlay">
+                        <button class="view-btn text-white text-lg bg-teal-600 px-4 py-2 rounded-full" 
+                                data-img="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                                data-caption="Cultural Day">View</button>
+                    </div>
+                </div>
+                <div class="gallery-item events" data-category="events">
+                    <img src="https://images.unsplash.com/photo-1542587222-f9172e5eba29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Graduation" 
+                         class="w-full h-48 object-cover rounded-lg cursor-pointer gallery-image">
+                    <div class="gallery-overlay">
+                        <button class="view-btn text-white text-lg bg-teal-600 px-4 py-2 rounded-full" 
+                                data-img="https://images.unsplash.com/photo-1542587222-f9172e5eba29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                                data-caption="Graduation">View</button>
+                    </div>
+                </div>
+                <div class="gallery-item classroom" data-category="classroom">
+                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Preschool" 
+                         class="w-full h-48 object-cover rounded-lg cursor-pointer gallery-image">
+                    <div class="gallery-overlay">
+                        <button class="view-btn text-white text-lg bg-teal-600 px-4 py-2 rounded-full" 
+                                data-img="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                                data-caption="Preschool">View</button>
+                    </div>
+                </div>
+                <div class="gallery-item sports" data-category="sports">
+                    <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" 
+                         alt="Athletics" 
+                         class="w-full h-48 object-cover rounded-lg cursor-pointer gallery-image">
+                    <div class="gallery-overlay">
+                        <button class="view-btn text-white text-lg bg-teal-600 px-4 py-2 rounded-full" 
+                                data-img="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" 
+                                data-caption="Athletics">View</button>
+                    </div>
+                </div>
+                <div class="gallery-item cultural" data-category="cultural">
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Performance" 
+                         class="w-full h-48 object-cover rounded-lg cursor-pointer gallery-image">
+                    <div class="gallery-overlay">
+                        <button class="view-btn text-white text-lg bg-teal-600 px-4 py-2 rounded-full" 
+                                data-img="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                                data-caption="Performance">View</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <button id="loadMoreGallery" class="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-full font-medium transition duration-300">Load More</button>
+            </div>
+        </div>
+        
+        <!-- Lightbox -->
+        <div id="lightbox" class="lightbox">
+            <span class="lightbox-close">&times;</span>
+            <img id="lightbox-img" class="lightbox-content" src="" alt="Lightbox Image">
+            <div class="absolute bottom-4 left-0 right-0 text-center text-white">
+                <p id="lightbox-caption" class="text-lg"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-12 bg-gray-100 dark:bg-slate-700">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8">
+                <h2 class="text-2xl font-bold text-center mb-4 text-teal-600 dark:text-teal-400">Stay Updated</h2>
+                <p class="text-center text-gray-600 dark:text-gray-300 mb-6">Subscribe to our newsletter to receive updates on school events, academic calendars and important announcements.</p>
+                
+                <form id="newsletterForm" class="flex flex-col sm:flex-row gap-4">
+                    <input type="email" id="newsletterEmail" placeholder="Your email address" class="flex-grow px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 dark:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+                    <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-lg font-medium transition duration-300">Subscribe</button>
+                </form>
+                
+                <div id="newsletterSuccess" class="hidden mt-4 p-4 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200 rounded-lg">
+                    Thank you for subscribing! You'll receive our next newsletter.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us -->
+    <section id="contact" class="py-16 bg-white dark:bg-slate-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-teal-600 dark:text-teal-400">Contact Us</h2>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <!-- Map Container -->
+                    <div class="mb-8 rounded-lg overflow-hidden shadow-xl">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3970.755238724263!2d-0.18686768476180092!3d5.603822995932325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf9084b2b7a773%3A0x6f8a0434e5c1349a!2sEast%20Legon%2C%20Accra!5e0!3m2!1sen!2sgh!4v1620000000000!5m2!1sen!2sgh" 
+                            width="100%" 
+                            height="400" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy"
+                            class="dark:filter dark:brightness-75"
+                            title="Bright Future Academy Location">
+                        </iframe>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-200">Get in Touch</h3>
+                    
+                    <div class="mb-8">
+                        <div class="flex items-start mb-6">
+                            <div class="bg-teal-100 dark:bg-teal-900 p-3 rounded-full mr-4">
+                                <i class="fas fa-map-marker-alt text-teal-600 dark:text-teal-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 dark:text-gray-200">Address</h4>
+                                <p class="text-gray-600 dark:text-gray-300">123 Education Avenue, East Legon, Accra, Ghana</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start mb-6">
+                            <div class="bg-teal-100 dark:bg-teal-900 p-3 rounded-full mr-4">
+                                <i class="fas fa-phone-alt text-teal-600 dark:text-teal-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 dark:text-gray-200">Phone</h4>
+                                <p class="text-gray-600 dark:text-gray-300">+233 24 123 4567</p>
+                                <p class="text-gray-600 dark:text-gray-300">+233 50 987 6543</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start mb-6">
+                            <div class="bg-teal-100 dark:bg-teal-900 p-3 rounded-full mr-4">
+                                <i class="fas fa-envelope text-teal-600 dark:text-teal-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 dark:text-gray-200">Email</h4>
+                                <p class="text-gray-600 dark:text-gray-300">info@brightfuture.edu.gh</p>
+                                <p class="text-gray-600 dark:text-gray-300">admissions@brightfuture.edu.gh</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-teal-100 dark:bg-teal-900 p-3 rounded-full mr-4">
+                                <i class="fas fa-clock text-teal-600 dark:text-teal-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 dark:text-gray-200">Working Hours</h4>
+                                <p class="text-gray-600 dark:text-gray-300">Monday - Friday: 7:30 AM - 4:30 PM</p>
+                                <p class="text-gray-600 dark:text-gray-300">Saturday: 9:00 AM - 1:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-200">Send Us a Message</h3>
+                    
+                    <form id="contactForm" action="https://formspree.io/f/moverdvz" method="POST" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="name" class="block text-gray-700 dark:text-gray-300 mb-1">Full Name *</label>
+                                <input type="text" id="name" name="name" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 dark:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-gray-700 dark:text-gray-300 mb-1">Email *</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 dark:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="phone" class="block text-gray-700 dark:text-gray-300 mb-1">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 dark:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500">
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-gray-700 dark:text-gray-300 mb-1">Subject *</label>
+                            <select id="subject" name="subject" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 dark:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500" required>
+                                <option value="">Select a subject</option>
+                                <option value="Admission">Admission Enquiry</option>
+                                <option value="Academic">Academic Matters</option>
+                                <option value="Administrative">Administrative Issues</option>
+                                <option value="Feedback">Feedback/Suggestions</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-gray-700 dark:text-gray-300 mb-1">Message *</label>
+                            <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 dark:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300 w-full">
+                            <span id="submitText">Send Message</span>
+                            <div id="submitSpinner" class="hidden inline-block ml-2">
+                                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                            </div>
+                        </button>
+                    </form>
+                    
+                    <div id="contactSuccess" class="hidden mt-4 p-4 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200 rounded-lg">
+                        Thank you for your message! We'll get back to you soon.
+                    </div>
+                    <div id="contactError" class="hidden mt-4 p-4 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-200 rounded-lg">
+                        There was an error sending your message. Please try again later.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admissions Info -->
+    <section class="py-16 bg-gray-100 dark:bg-slate-700">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-teal-600 dark:text-teal-400">Admissions</h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg overflow-hidden">
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-200">Admission Process</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="accordion">
+                                <button class="accordion-btn flex justify-between items-center w-full text-left py-3 px-4 bg-gray-100 dark:bg-slate-700 rounded-lg">
+                                    <span class="font-medium text-gray-800 dark:text-gray-200">1. Application Submission</span>
+                                    <i class="fas fa-chevron-down accordion-icon text-teal-600 dark:text-teal-400"></i>
+                                </button>
+                                <div class="accordion-content px-4">
+                                    <p class="py-4 text-gray-600 dark:text-gray-300">Submit a completed application form along with the following documents:
+                                        <ul class="list-disc pl-6 mt-2 space-y-2">
+                                            <li>Birth certificate (photocopy)</li>
+                                            <li>Two passport-sized photographs</li>
+                                            <li>Previous school report (if applicable)</li>
+                                            <li>Medical report</li>
+                                        </ul>
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion">
+                                <button class="accordion-btn flex justify-between items-center w-full text-left py-3 px-4 bg-gray-100 dark:bg-slate-700 rounded-lg">
+                                    <span class="font-medium text-gray-800 dark:text-gray-200">2. Assessment/Interview</span>
+                                    <i class="fas fa-chevron-down accordion-icon text-teal-600 dark:text-teal-400"></i>
+                                </button>
+                                <div class="accordion-content px-4">
+                                    <p class="py-4 text-gray-600 dark:text-gray-300">Depending on the class level, students may be required to:
+                                        <ul class="list-disc pl-6 mt-2 space-y-2">
+                                            <li>Take an assessment test (Primary & JHS)</li>
+                                            <li>Participate in an interactive session (Preschool)</li>
+                                            <li>Attend an interview with parents (All levels)</li>
+                                        </ul>
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion">
+                                <button class="accordion-btn flex justify-between items-center w-full text-left py-3 px-4 bg-gray-100 dark:bg-slate-700 rounded-lg">
+                                    <span class="font-medium text-gray-800 dark:text-gray-200">3. Admission Decision</span>
+                                    <i class="fas fa-chevron-down accordion-icon text-teal-600 dark:text-teal-400"></i>
+                                </button>
+                                <div class="accordion-content px-4">
+                                    <p class="py-4 text-gray-600 dark:text-gray-300">Parents will be notified of the admission decision within 5 working days after the assessment/interview. Successful applicants will receive an admission letter with details about fees, uniforms, and other requirements.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion">
+                                <button class="accordion-btn flex justify-between items-center w-full text-left py-3 px-4 bg-gray-100 dark:bg-slate-700 rounded-lg">
+                                    <span class="font-medium text-gray-800 dark:text-gray-200">4. Enrollment Completion</span>
+                                    <i class="fas fa-chevron-down accordion-icon text-teal-600 dark:text-teal-400"></i>
+                                </button>
+                                <div class="accordion-content px-4">
+                                    <p class="py-4 text-gray-600 dark:text-gray-300">To complete enrollment, parents must:
+                                        <ul class="list-disc pl-6 mt-2 space-y-2">
+                                            <li>Pay the required fees</li>
+                                            <li>Submit all outstanding documents</li>
+                                            <li>Purchase school uniforms and supplies</li>
+                                            <li>Attend orientation session</li>
+                                        </ul>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calendar Section -->
+    <section class="py-16 bg-white dark:bg-slate-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-teal-600 dark:text-teal-400">School Calendar</h2>
+            
+            <div class="max-w-4xl mx-auto bg-white dark:bg-slate-700 rounded-lg shadow-lg p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <button id="prevMonth" class="p-2 rounded-full bg-gray-200 dark:bg-slate-600 text-gray-700 dark:text-gray-200">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <h3 id="currentMonth" class="text-xl font-bold text-gray-800 dark:text-gray-200">June 2023</h3>
+                    <button id="nextMonth" class="p-2 rounded-full bg-gray-200 dark:bg-slate-600 text-gray-700 dark:text-gray-200">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <div class="calendar mb-6">
+                    <div class="calendar-day font-bold text-center text-gray-700 dark:text-gray-300">Sun</div>
+                    <div class="calendar-day font-bold text-center text-gray-700 dark:text-gray-300">Mon</div>
+                    <div class="calendar-day font-bold text-center text-gray-700 dark:text-gray-300">Tue</div>
+                    <div class="calendar-day font-bold text-center text-gray-700 dark:text-gray-300">Wed</div>
+                    <div class="calendar-day font-bold text-center text-gray-700 dark:text-gray-300">Thu</div>
+                    <div class="calendar-day font-bold text-center text-gray-700 dark:text-gray-300">Fri</div>
+                    <div class="calendar-day font-bold text-center text-gray-700 dark:text-gray-300">Sat</div>
+                    
+                    <!-- Calendar days will be populated by JavaScript -->
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-gray-800 dark:text-gray-200 mb-2">Upcoming Events</h4>
+                    <div class="space-y-2">
+                        <div class="flex items-start">
+                            <div class="bg-teal-100 dark:bg-teal-900 p-2 rounded-full mr-3 mt-1">
+                                <i class="fas fa-calendar-day text-teal-600 dark:text-teal-400 text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-800 dark:text-gray-200">Sports Day</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">June 15, 2023</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-teal-100 dark:bg-teal-900 p-2 rounded-full mr-3 mt-1">
+                                <i class="fas fa-calendar-day text-teal-600 dark:text-teal-400 text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-800 dark:text-gray-200">Mid-Term Break</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">June 20-22, 2023</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-teal-100 dark:bg-teal-900 p-2 rounded-full mr-3 mt-1">
+                                <i class="fas fa-calendar-day text-teal-600 dark:text-teal-400 text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-800 dark:text-gray-200">Cultural Day</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">June 30, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-teal-600 dark:bg-teal-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Bright Future Academy</h3>
+                    <p class="mb-4">Providing quality education in Ghana since 2005.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-amber-300"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white hover:text-amber-300"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white hover:text-amber-300"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-amber-300"><i class="fab fa-youtube"></i> 	www.youtube.com/@PacificServices-bi5zr</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="hover:text-amber-300">Home</a></li>
+                        <li><a href="#about" class="hover:text-amber-300">About Us</a></li>
+                        <li><a href="#preschool" class="hover:text-amber-300">Preschool</a></li>
+                        <li><a href="#primary" class="hover:text-amber-300">Primary</a></li>
+                        <li><a href="#jhs" class="hover:text-amber-300">JHS</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-amber-300">School Calendar</a></li>
+                        <li><a href="#" class="hover:text-amber-300">News & Events</a></li>
+                        <li><a href="#" class="hover:text-amber-300">Parent Portal</a></li>
+                        <li><a href="#" class="hover:text-amber-300">FAQs</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Contact Info</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                            <span>123 Education Avenue, East Legon, Accra</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                            <span>+233 24 123 4567</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-2"></i>
+                            <span>info@brightfuture.edu.gh</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-teal-500 mt-8 pt-8 text-center">
+                <p>&copy; 2023 Bright Future Academy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        
+        // Check for saved user preference or use system preference
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        html.classList.toggle('dark', savedTheme === 'dark');
+        
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            const theme = html.classList.contains('dark') ? 'dark' : 'light';
+            localStorage.setItem('theme', theme);
+            
+            // Show toast notification
+            showToast(`Switched to ${theme} mode`);
+        });
+        
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+        
+        // Mobile Academics Menu Toggle
+        const academicsMobileBtn = document.getElementById('academicsMobileBtn');
+        const academicsMobileMenu = document.getElementById('academicsMobileMenu');
+        
+        academicsMobileBtn.addEventListener('click', () => {
+            academicsMobileMenu.classList.toggle('hidden');
+            const icon = academicsMobileBtn.querySelector('.accordion-icon');
+            icon.classList.toggle('transform');
+            icon.classList.toggle('rotate-180');
+        });
+        
+        // Image Slideshow
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        
+        function showSlides(n) {
+            // Wrap around if at end
+            if (n >= slides.length) { slideIndex = 0; }
+            if (n < 0) { slideIndex = slides.length - 1; }
+            
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active-slide'));
+            // Show current slide
+            slides[slideIndex].classList.add('active-slide');
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('bg-white', index === slideIndex);
+                dot.classList.toggle('bg-opacity-50', index !== slideIndex);
+            });
+        }
+        
+        // Next/previous controls
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            slideIndex++;
+            showSlides(slideIndex);
+        });
+        
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            slideIndex--;
+            showSlides(slideIndex);
+        });
+        
+        // Dot controls
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                slideIndex = index;
+                showSlides(slideIndex);
+            });
+        });
+        
+        // Auto-advance slides every 5 seconds
+        let slideInterval = setInterval(() => {
+            slideIndex++;
+            showSlides(slideIndex);
+        }, 5000);
+        
+        // Pause on hover
+        const slideshowContainer = document.querySelector('.relative');
+        slideshowContainer.addEventListener('mouseenter', () => {
+            clearInterval(slideInterval);
+        });
+        
+        slideshowContainer.addEventListener('mouseleave', () => {
+            slideInterval = setInterval(() => {
+                slideIndex++;
+                showSlides(slideIndex);
+            }, 5000);
+        });
+        
+        // Initialize slides
+        showSlides(slideIndex);
+        
+        // Testimonial Slideshow
+        let testimonialIndex = 0;
+        const testimonials = document.querySelectorAll('.testimonial-slide');
+        const testimonialDots = document.querySelectorAll('.testimonial-dot');
+        
+        function showTestimonials(n) {
+            // Wrap around if at end
+            if (n >= testimonials.length) { testimonialIndex = 0; }
+            if (n < 0) { testimonialIndex = testimonials.length - 1; }
+            
+            // Hide all testimonials
+            testimonials.forEach(testimonial => testimonial.classList.remove('active-testimonial'));
+            // Show current testimonial
+            testimonials[testimonialIndex].classList.add('active-testimonial');
+            
+            // Update dots
+            testimonialDots.forEach((dot, index) => {
+                dot.classList.toggle('bg-white', index === testimonialIndex);
+                dot.classList.toggle('bg-opacity-50', index !== testimonialIndex);
+            });
+        }
+        
+        // Next/previous controls
+        document.getElementById('nextTestimonial').addEventListener('click', () => {
+            testimonialIndex++;
+            showTestimonials(testimonialIndex);
+        });
+        
+        document.getElementById('prevTestimonial').addEventListener('click', () => {
+            testimonialIndex--;
+            showTestimonials(testimonialIndex);
+        });
+        
+        // Dot controls
+        testimonialDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                testimonialIndex = index;
+                showTestimonials(testimonialIndex);
+            });
+        });
+        
+        // Auto-advance testimonials every 8 seconds
+        let testimonialInterval = setInterval(() => {
+            testimonialIndex++;
+            showTestimonials(testimonialIndex);
+        }, 8000);
+        
+        // Initialize testimonials
+        showTestimonials(testimonialIndex);
+        
+        // Gallery Filter
+        const galleryFilters = document.querySelectorAll('.gallery-filter');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        galleryFilters.forEach(filter => {
+            filter.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Update active filter button
+                galleryFilters.forEach(f => {
+                    f.classList.toggle('bg-teal-600', f === filter);
+                    f.classList.toggle('text-white', f === filter);
+                    f.classList.toggle('bg-gray-200', f !== filter);
+                    f.classList.toggle('dark:bg-slate-700', f !== filter);
+                    f.classList.toggle('text-gray-700', f !== filter);
+                    f.classList.toggle('dark:text-gray-200', f !== filter);
+                });
+                
+                const category = filter.dataset.filter;
+                
+                // Filter items
+                galleryItems.forEach(item => {
+                    if (category === 'all' || item.dataset.category === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Lightbox Gallery
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const lightboxClose = document.querySelector('.lightbox-close');
+        
+        // Add click event to all view buttons and images
+        document.querySelectorAll('.view-btn, .gallery-image').forEach(element => {
+            element.addEventListener('click', (e) => {
+                e.preventDefault();
+                const imgSrc = element.classList.contains('view-btn') ? 
+                              element.dataset.img : element.src;
+                const imgAlt = element.classList.contains('view-btn') ? 
+                              element.dataset.caption : element.alt;
+                
+                lightbox.style.display = 'flex';
+                lightboxImg.src = imgSrc;
+                lightboxCaption.textContent = imgAlt;
+            });
+        });
+        
+        // Close lightbox
+        lightboxClose.addEventListener('click', () => {
+            lightbox.style.display = 'none';
+        });
+        
+        // Close when clicking outside image
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.style.display = 'none';
+            }
+        });
+        
+        // Load More Gallery Items
+        const loadMoreBtn = document.getElementById('loadMoreGallery');
+        let loadedItems = 8; // Initial number of items shown
+        
+        // Initially hide items beyond the first 8
+        document.querySelectorAll('.gallery-item').forEach((item, index) => {
+            if (index >= loadedItems) {
+                item.style.display = 'none';
+            }
+        });
+        
+        loadMoreBtn.addEventListener('click', () => {
+            // Show next 4 items
+            const items = document.querySelectorAll('.gallery-item');
+            const itemsToShow = Math.min(loadedItems + 4, items.length);
+            
+            for (let i = loadedItems; i < itemsToShow; i++) {
+                items[i].style.display = 'block';
+                items[i].style.animation = 'fadeIn 0.5s ease-in';
+            }
+            
+            loadedItems = itemsToShow;
+            
+            // Hide button if all items are shown
+            if (loadedItems >= items.length) {
+                loadMoreBtn.style.display = 'none';
+            }
+        });
+        
+        // Accordion functionality
+        const accordionBtns = document.querySelectorAll('.accordion-btn');
+        
+        accordionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const accordion = btn.parentElement;
+                accordion.classList.toggle('active');
+                
+                const content = accordion.querySelector('.accordion-content');
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            });
+        });
+        
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const submitText = document.getElementById('submitText');
+            const submitSpinner = document.getElementById('submitSpinner');
+            const successMsg = document.getElementById('contactSuccess');
+            const errorMsg = document.getElementById('contactError');
+            
+            // Show loading state
+            submitText.textContent = 'Sending...';
+            submitSpinner.classList.remove('hidden');
+            submitBtn.disabled = true;
+            
+            // Hide previous messages
+            successMsg.classList.add('hidden');
+            errorMsg.classList.add('hidden');
+            
+            // Collect form data
+            const formData = new FormData(form);
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(data => {
+                // Show success message
+                successMsg.classList.remove('hidden');
+                form.reset();
+            })
+            .catch(error => {
+                // Show error message
+                errorMsg.classList.remove('hidden');
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                // Reset button state
+                submitText.textContent = 'Send Message';
+                submitSpinner.classList.add('hidden');
+                submitBtn.disabled = false;
+            });
+        });
+
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading spinner
+            document.getElementById('loader').style.display = 'flex';
+            
+            // Simulate form submission
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('newsletterSuccess').classList.remove('hidden');
+                this.reset();
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    document.getElementById('newsletterSuccess').classList.add('hidden');
+                }, 5000);
+            }, 1500);
+        });
+        
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    mobileMenu.classList.remove('open');
+                }
+            });
+        });
+        
+        // Calendar functionality
+        const currentMonthElement = document.getElementById('currentMonth');
+        const prevMonthBtn = document.getElementById('prevMonth');
+        const nextMonthBtn = document.getElementById('nextMonth');
+        const calendarDays = document.querySelector('.calendar');
+        
+        let currentDate = new Date();
+        
+        function renderCalendar() {
+            // Clear existing days
+            while (calendarDays.children.length > 7) {
+                calendarDays.removeChild(calendarDays.lastChild);
+            }
+            
+            // Set month and year in header
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                           'July', 'August', 'September', 'October', 'November', 'December'];
+            currentMonthElement.textContent = `${months[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+            
+            // Get first day of month and total days in month
+            const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
+            const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+            
+            // Add empty cells for days before first day of month
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.classList.add('calendar-day');
+                calendarDays.appendChild(emptyDay);
+            }
+            
+            // Add days of month
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayElement = document.createElement('div');
+                dayElement.classList.add('calendar-day');
+                dayElement.textContent = i;
+                
+                // Highlight current day
+                const today = new Date();
+                if (i === today.getDate() && currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear()) {
+                    dayElement.classList.add('active');
+                }
+                
+                calendarDays.appendChild(dayElement);
+            }
+        }
+        
+        prevMonthBtn.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        });
+        
+        nextMonthBtn.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        });
+        
+        // Initialize calendar
+        renderCalendar();
+        
+        // Toast notification function
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Simulate page loading
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
